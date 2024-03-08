@@ -48,25 +48,17 @@ export default defineConfig({
       use: { ...devices["Desktop Safari"] },
     },
 
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: "API Tests",
+      testMatch: "APITests/**/*",
+      use: {
+        baseURL: "https://api.github.com",
+        extraHTTPHeaders: {
+          Accept: "application/vnd.github.v3+json",
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+      },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
