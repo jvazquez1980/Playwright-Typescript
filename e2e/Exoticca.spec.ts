@@ -1,21 +1,12 @@
 import { test, expect } from "@playwright/test";
 
-test.beforeEach(async ({ context }) => {
-  await context.addCookies([
-    {
-      name: "exoticca_showed_lead",
-      value: "yes",
-      domain: "exoticca.com",
-      path: "/",
-    },
-  ]);
-});
 test.describe("Exoticca demo", () => {
   test("Test", async ({ page, context }) => {
     await test.step("Home", async () => {
       await page.goto("https://www.exoticca.com/fr");
     });
 
+    await context.addCookies([{name:"exoticca_showed_lead", value: "yes", url: "https://www.exoticca.com"}]);
     await test.step("Go to pdp", async () => {
       await page.locator('[data-testid="card-campaign-link"]').first().click();
       await expect(page.getByTestId("pdp-campaign-header")).toContainText(

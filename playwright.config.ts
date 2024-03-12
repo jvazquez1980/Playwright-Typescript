@@ -1,38 +1,49 @@
 import { defineConfig, devices } from "@playwright/test";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   testDir: "./e2e",
   /* Run tests in files in parallel */
   fullyParallel: true,
-  timeout: 60000,
+  timeout: 20000,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   // forbidOnly: !!process.env.CI,
   // /* Retry on CI only */
-  // retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   // /* Opt out of parallel tests on CI. */
-  // workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 4 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace: "on",
+    video:'retain-on-failure'
   },
 
   /* Configure projects for major browsers */
   projects: [
+
+
+    {
+      name: 'Computadora',
+      testMatch: "/*.spec.ts",
+      use: { ...devices['Desktop Chrome'] },
+    },
+ 
+    {
+      name: ' Iphone',
+      testMatch: "/*.spec.ts",
+      use: { ...devices['iPhone 12'] },
+    },
+ 
+    {
+      name: 'iPad',
+      testMatch: "/*.spec.ts",
+      use: { ...devices['iPad (gen 7)'] },
+    },
+
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
@@ -43,19 +54,19 @@ export default defineConfig({
     //   use: { ...devices["Desktop Firefox"] },
     // },
 
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-    },
+    // {
+    //   name: "webkit",
+    //   use: { ...devices["Desktop Safari"] },
+    // },
 
     {
       name: "API Tests",
       testMatch: "APITests/**/*",
       use: {
-        baseURL: "https://api.github.com",
+        baseURL: "https://github.com/",
         extraHTTPHeaders: {
           Accept: "application/vnd.github.v3+json",
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.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}`,
         },
       },
     },
