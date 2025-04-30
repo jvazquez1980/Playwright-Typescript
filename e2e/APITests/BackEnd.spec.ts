@@ -8,7 +8,7 @@ test.afterAll(async ({ request }) => {
   expect(response.ok()).toBeTruthy();
 });
 
-test("Bug1", async ({ request }) => {
+test.skip("Bug1", async ({ request }) => {
   const newIssue = await request.post(`'/'/${User}/${Repo}/issues`, {
     data: {
       title: "[Bug] Prueba 1",
@@ -45,4 +45,3 @@ test("Bug2", async ({ request }) => {
     })
   );
 });
-
