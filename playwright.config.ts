@@ -1,11 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
-
 export default defineConfig({
   testDir: "./e2e",
   /* Run tests in files in parallel */
   fullyParallel: true,
-  timeout: 20000,
+  timeout: 50000,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   // forbidOnly: !!process.env.CI,
   // /* Retry on CI only */
@@ -19,29 +18,27 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     trace: "on",
-    video:'retain-on-failure'
+    video: "retain-on-failure",
   },
 
   /* Configure projects for major browsers */
   projects: [
-
-
     {
-      name: 'Computadora',
+      name: "Computadora",
       testMatch: "/*.spec.ts",
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices["Desktop Chrome"] },
     },
- 
+
     {
-      name: ' Iphone',
+      name: " Iphone",
       testMatch: "/*.spec.ts",
-      use: { ...devices['iPhone 12'] },
+      use: { ...devices["iPhone 12"] },
     },
- 
+
     {
-      name: 'iPad',
+      name: "iPad",
       testMatch: "/*.spec.ts",
-      use: { ...devices['iPad (gen 7)'] },
+      use: { ...devices["iPad (gen 7)"] },
     },
 
     {
@@ -49,15 +46,15 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
 
-    // {
-    //   name: "firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+    },
 
-    // {
-    //   name: "webkit",
-    //   use: { ...devices["Desktop Safari"] },
-    // },
+    {
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
+    },
 
     {
       name: "API Tests",
